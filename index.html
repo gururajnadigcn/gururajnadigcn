@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign-up Form</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+      integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- START HERE -->
+    <!-- <h1 class="display-6" style="text-align: center">From</h1> -->
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="panel">
+            <div class="panel-header display-4 mb-4 in-line">
+              Registration Form
+            </div>
+
+            <form name="regForm" id="myform">
+              <div class="form-group">
+                <label for="firstname" class="control-label">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstname"
+                  placeholder="First Name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="lastname" class="control-label">Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastname"
+                  placeholder="Last Name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="phnumber" class="control-label">Phone Number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phnumber"
+                  placeholder="Phone Number"
+                  pattern="[1-9]{1}[0-9]{9}"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="emailid" class="control-label">Email-Id</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="emailid"
+                  placeholder="Email-Id"
+                  required
+                />
+              </div>
+
+              <div class="row">
+                <div class="form-group col-2" style="max-width: 250px">
+                  <label for="gender" class="control-label">Gender</label><br />
+
+                  <select class="form-control" id="gender1" name="gender">
+                    <option>Select Gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Others</option>
+                  </select>
+                </div>
+                <div class="form-group" style="max-width: 250px">
+                  <label for="dob" class="control-label">Date-of-Birth</label>
+                  <input
+                    type="date"
+                    name="dob"
+                    class="form-control"
+                    id="dob"
+                    placeholder="dd-mm-yyyy"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="age">Age</label>
+                <input
+                  type="text"
+                  name="age"
+                  class="form-control"
+                  id="age"
+                  readonly
+                />
+              </div>
+              <div class="form-group mb-5">
+                <button
+                  class="btn btn-success"
+                  type="submit"
+                  id="submit"
+                  onsubmit="validate()"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+          <div>
+            <table
+              class="table table-bordered table-condensed table-striped"
+              id="myTable"
+            >
+              <thread>
+                <th nowrap>#</th>
+                <th nowrap>First Name</th>
+                <th nowrap>Last Name</th>
+                <th nowrap>Phone Number</th>
+                <th nowrap>Email-Id</th>
+                <th nowrap>Gender</th>
+                <th nowrap>DOB</th>
+                <th nowrap>Age</th>
+              </thread>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+      integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+      crossorigin="anonymous"
+    ></script>
+    <script src="scripts/app.js"></script>
+
+    <script>
+      function getAge() {
+        var newDateObject = new Date();
+
+        var newObjectCurrentYear = newDateObject.getFullYear();
+
+        var userDateObject = document.getElementById("dob").value;
+
+        var userDateObjectPieces = userDateObject.split("-");
+
+        var userObjectYear = userDateObjectPieces[0];
+
+        if (newObjectCurrentYear > userObjectYear) {
+          var currentAge =
+            parseInt(newObjectCurrentYear) - parseInt(userObjectYear);
+          return currentAge;
+          alert(
+            "Your Current Age is: " +
+              currentAge +
+              " " +
+              (currentAge > 1 ? "years" : "year")
+          );
+        } else {
+          alert(
+            "Birth-Year must be lower than Current-Year.\nPlease Enter Again."
+          );
+        }
+      }
+
+      //   var submitButton = document.getElementById("submit");
+      //   submitButton.addEventListener("click", getAge);
+    </script>
+    <script>
+      $("#dob").on("blur", function () {
+        document.getElementById("age").value = getAge();
+      });
+    </script>
+    <!-- data display jquery -->
+    <script>
+      $("#submit").on("click", function () {
+        var first_name = $("#firstname").val();
+        var last_name = $("#lastname").val();
+        var phonenumber = $("#phnumber").val();
+        var email = $("#emailid").val();
+        var gender = $("#gender1").val();
+        var dateofbirth = $("#dob").val();
+        var age = $("#age").val();
+
+        var count = $("#myTable tr").length;
+        if (
+          first_name != "" &&
+          last_name != "" &&
+          phonenumber != "" &&
+          email != "" &&
+          gender != "" &&
+          dateofbirth != "" &&
+          age != ""
+        ) {
+          $("#myTable tbody").append(
+            '<tr class="child"><td>' +
+              count +
+              "</td><td>" +
+              first_name +
+              "</td><td>" +
+              last_name +
+              "</td><td>" +
+              phonenumber +
+              "</td><td>" +
+              email +
+              "</td><td>" +
+              gender +
+              "</td><td>" +
+              dateofbirth +
+              "</td><td>" +
+              age +
+              '</td><td><a href="javascript:void(0);" class="remCF1 btn btn-small btn-danger">Remove</a></td></tr>'
+          );
+        }
+      });
+      $(document).on("click", ".remCF1", function () {
+        $(this).parent().parent().remove();
+        $("#myTable tbody tr").each(function (i) {
+          $($(this).find("td")[0]).html(i + 1);
+        });
+      });
+    </script>
+  </body>
+</html>
